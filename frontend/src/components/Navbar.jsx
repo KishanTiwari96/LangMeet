@@ -23,11 +23,9 @@ const Navbar = ({ onSidebarToggle }) => {
     <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-16 flex items-center">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center w-full">
-          {/* Hamburger menu for mobile */}
           <button className="lg:hidden btn btn-ghost btn-circle mr-2" onClick={onSidebarToggle}>
             <MenuIcon className="h-6 w-6 text-base-content opacity-70" />
           </button>
-          {/* Logo: always on mobile, only on chat page for lg+ */}
           <div className={`flex ${isChatPage ? 'lg:flex' : 'lg:hidden'}`}>
             <Link to={'/'} className="flex items-center gap-2.5">
               <ShipWheelIcon className="size-6 lg:size-9 text-primary" />
@@ -36,36 +34,38 @@ const Navbar = ({ onSidebarToggle }) => {
               </span>
             </Link>
           </div>
-          {/* Navbar options group: always right-aligned, consistent gap */}
           <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 ml-auto">
-            {/* Desktop-only options */}
             <Link to={'/notifications'} className="hidden lg:inline-flex btn btn-ghost btn-circle">
               <BellIcon className="h-6 w-6 text-base-content opacity-70" />
             </Link>
-            {/* Profile pic and theme selector closer together on desktop */}
             <div className="hidden lg:flex items-center gap-1">
               <ThemeSelector />
               <div className="avatar">
-                <div className="w-6 rounded-full">
-                  <img src={authUser?.profilePic || '/vite.svg'} alt="Profile" onError={e => { e.target.onerror = null; e.target.src = '/vite.svg'; }} />
-                </div>
+                <Link to="/profile">
+                  <div className="size-8 rounded-full cursor-pointer border-2 border-primary">
+                    <img src={authUser?.profilePic || '/vite.svg'} alt="Profile" onError={e => { e.target.onerror = null; e.target.src = '/vite.svg'; }} />
+                  </div>
+                </Link>
               </div>
             </div>
-            {/* ThemeSelector and Logout closer together on mobile/tablet */}
-            <div className="flex lg:hidden items-center ">
+            <div className="flex lg:hidden items-center gap-2">
+             
               <ThemeSelector />
+              <Link to="/profile">
+                <div className="avatar w-8 h-8 rounded-full cursor-pointer border-2 border-primary">
+                  <img src={authUser?.profilePic || '/vite.svg'} alt="Profile" onError={e => { e.target.onerror = null; e.target.src = '/vite.svg'; }} />
+                </div>
+              </Link>
               <button className="btn btn-ghost btn-circle" onClick={handleLogoutClick}>
                 <LogOutIcon className="h-6 w-6 text-base-content opacity-70" />
               </button>
             </div>
-            {/* Logout always visible, appears last on desktop */}
             <button className="hidden lg:inline-flex btn btn-ghost btn-circle" onClick={handleLogoutClick}>
               <LogOutIcon className="h-6 w-6 text-base-content opacity-70" />
             </button>
           </div>
         </div>
       </div>
-      {/* Logout confirmation modal */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
           <div className="bg-base-100 p-6 rounded-xl shadow-xl w-80 max-w-full flex flex-col items-center">

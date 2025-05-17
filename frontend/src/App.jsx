@@ -12,6 +12,7 @@ import useAuthUser from './hooks/useAuthUser.js'
 import Layout from './components/Layout.jsx'
 import { useThemeStore } from './store/useThemeStore.js'
 import FriendsPage from './pages/FriendsPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
 
 const App = () => {
 
@@ -64,6 +65,8 @@ const App = () => {
 
       <Route path='/onboarding' element={isAuthenticated ? (
         !isOnboarded ? (<OnboardingPage />) : (<Navigate to='/' />)) : (<Navigate to='/login' />)} />
+
+      <Route path='/profile' element={isAuthenticated && isOnboarded ? <Layout showSidebar={true}><ProfilePage /></Layout> : <Navigate to={!isAuthenticated ? '/login' : '/onboarding'} />} />
     </Routes>
 
     <Toaster />
