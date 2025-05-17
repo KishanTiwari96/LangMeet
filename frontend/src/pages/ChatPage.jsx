@@ -36,6 +36,12 @@ const ChatPage = () => {
   })
 
   useEffect(() => {
+    if (tokenData?.token) {
+      localStorage.setItem('stream_token', tokenData.token)
+    }
+  }, [tokenData])
+
+  useEffect(() => {
     const initChat = async () => {
       if (!tokenData?.token || !authUser) return
 

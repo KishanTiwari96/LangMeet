@@ -13,6 +13,7 @@ import Layout from './components/Layout.jsx'
 import { useThemeStore } from './store/useThemeStore.js'
 import FriendsPage from './pages/FriendsPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+import UserProfilePage from './pages/UserProfilePage.jsx'
 
 const App = () => {
 
@@ -67,6 +68,7 @@ const App = () => {
         !isOnboarded ? (<OnboardingPage />) : (<Navigate to='/' />)) : (<Navigate to='/login' />)} />
 
       <Route path='/profile' element={isAuthenticated && isOnboarded ? <Layout showSidebar={true}><ProfilePage /></Layout> : <Navigate to={!isAuthenticated ? '/login' : '/onboarding'} />} />
+      <Route path='/user/:id' element={<Layout showSidebar={true}><UserProfilePage /></Layout>} />
     </Routes>
 
     <Toaster />
